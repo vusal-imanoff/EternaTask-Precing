@@ -1,0 +1,45 @@
+﻿@model PriceingVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Pricing</li>
+        </ol>
+        <h2>Pricing</h2>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+<!-- ======= Pricing Section ======= -->
+<section id="pricing" class="pricing">
+    <div class="container">
+
+        <div class="row no-gutters">
+
+            @foreach (Plan plan in Model.Plans)
+            {
+                <div class="col-lg-4 box @(plan.IsFeature ? "featured":"")">
+                    <h3>@plan.Name</h3>
+                    <h4>$@plan.Price<span>per month</span></h4>
+                    <ul>
+                        
+                        @foreach (FeatureItem featureItem in Model.FeatureItems)
+                        {
+
+                            <li class="@(featureItem.PlanFeatures.Any(x=>x.PlanId==plan.Id)?null:"na text-decoration-line-through")"><i class="bx @(featureItem.PlanFeatures.Any(x=>x.PlanId==plan.Id)?"bx-check":"bx-x") "></i> @featureItem.Name</li>
+                               
+                          }
+                    </ul>
+                    <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</section><!-- End Pricing Section -->
